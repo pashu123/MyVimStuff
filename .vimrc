@@ -224,9 +224,9 @@ autocmd FileChangedShellPost *
 
 " YCM conf
 " install with .install.py --clangd-completer
+let g:ycm_global_ycm_extra_conf = '~/ycm_extra_conf.py'
 let g:ycm_use_clangd = 1
 let g:ycm_max_diagnostics_to_display = 500
-let g:ycm_confirm_extra_conf = 0
 let g:ycm_always_populate_location_list = 0
 let g:ycm_auto_hover = ""
 nnoremap <silent> <Leader>jp :YcmCompleter GoTo<CR>
