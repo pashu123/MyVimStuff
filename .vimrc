@@ -6,8 +6,6 @@ filetype plugin on
 set scrolloff=5
 set incsearch
 set backspace=indent,eol,start  " more powerful backspacing
-set mouse=r
-
 " enabling status information in vim workfine for nvim
 set laststatus=2
 syntax on
@@ -29,7 +27,6 @@ autocmd FileType * setlocal formatoptions-=r
 " install all the plugin over here
 call plug#begin('~/.vim/plugged')
 Plug 'rhysd/vim-clang-format'
-Plug 'pechorin/any-jump.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
 Plug 'Chiel92/vim-autoformat'
@@ -105,7 +102,6 @@ nnoremap <leader>la :Autoformat <CR> \| :w <CR>
 nnoremap <leader>pyf :Black <CR> \| :w <CR>
 nnoremap <leader>rn :set rnu! <CR>
 nnoremap <leader>gc :GCheckout <CR>
-nnoremap <leader>aj :AnyJump<CR>
 
 
 " git lens like feature show code 
