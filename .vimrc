@@ -6,6 +6,9 @@ filetype plugin on
 set scrolloff=5
 set incsearch
 set backspace=indent,eol,start  " more powerful backspacing
+
+" enabling status information in vim workfine for nvim
+set laststatus=2
 syntax on
 " TextEdit might fail if hidden is not set.
 set hidden
