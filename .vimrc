@@ -6,6 +6,7 @@ filetype plugin on
 set scrolloff=5
 set incsearch
 set backspace=indent,eol,start  " more powerful backspacing
+set mouse=r
 
 " enabling status information in vim workfine for nvim
 set laststatus=2
