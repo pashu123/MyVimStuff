@@ -6,6 +6,7 @@ filetype plugin on
 set scrolloff=5
 set incsearch
 set backspace=indent,eol,start  " more powerful backspacing
+set mouse=c
 " enabling status information in vim workfine for nvim
 set laststatus=2
 syntax on
@@ -103,6 +104,12 @@ nnoremap <leader>pyf :Black <CR> \| :w <CR>
 nnoremap <leader>rn :set rnu! <CR>
 nnoremap <leader>gc :GCheckout <CR>
 
+"enabling tabs i have ignored them for so long
+nnoremap tn :tabnew<Space>
+nnoremap tk :tabnext<CR>
+nnoremap tj :tabprev<CR>
+nnoremap th :tabfirst<CR>
+nnoremap tl :tablast<CR>
 
 " git lens like feature show code 
 " let g:blamed_enabled = 0
