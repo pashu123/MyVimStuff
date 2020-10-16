@@ -106,10 +106,10 @@ nnoremap <leader>gc :GCheckout <CR>
 
 "enabling tabs i have ignored them for so long
 nnoremap tn :tabnew<Space>
-nnoremap tk :tabnext<CR>
-nnoremap tj :tabprev<CR>
-nnoremap th :tabfirst<CR>
-nnoremap tl :tablast<CR>
+nnoremap tl :tabnext<CR>
+nnoremap th :tabprev<CR>
+nnoremap tk :tabfirst<CR>
+nnoremap tj :tablast<CR>
 
 " git lens like feature show code 
 " let g:blamed_enabled = 0
