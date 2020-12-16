@@ -27,10 +27,10 @@ autocmd FileType * setlocal formatoptions-=r
 
 " install all the plugin over here
 call plug#begin('~/.vim/plugged')
-Plug 'rhysd/vim-clang-format'
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
-Plug 'Chiel92/vim-autoformat'
 Plug 'Valloric/YouCompleteMe'
 Plug 'preservim/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
@@ -40,19 +40,18 @@ Plug 'preservim/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'stsewd/fzf-checkout.vim'
-Plug 'ambv/black'
 Plug 'wesQ3/vim-windowswap'
 Plug 'kshenoy/vim-signature'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'voldikss/vim-floaterm'
 Plug 'wincent/terminus'
-" Plug 'APZelos/blamer.nvim'
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
-
 " leader and important mappings
+" nnoremap <leader>, :vsplit ~/.config/nvim/init.vim<CR>
+" nnoremap <C-s> :source ~/.config/nvim/init.vim<CR>
 let mapleader=" "
 nnoremap <leader>, :vsplit ~/.vimrc<CR>
 nnoremap <C-s> :source ~/.vimrc<CR>
@@ -61,16 +60,15 @@ map<leader>sb :NERDTreeToggle<CR>
 nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
 nnoremap Q <nop>
 
+" ripgrep command for smartcase
+let g:rg_command = 'rg --vimgrep -S'
+
 " mapping split keys
-nnoremap <leader>h <C-W>h
-nnoremap <leader>j <C-W>j
-nnoremap <leader>k <C-W>k
-nnoremap <leader>l <C-W>l
 nnoremap <Leader>] :exe "vertical resize +7" <CR>
 nnoremap <Leader>[ :exe "vertical resize -7" <CR>
 
+" Install plugin
 nnoremap <leader>ip :PlugInstall <CR>
-
 
 "Configuring the light line status bar
 let g:lightline = {
@@ -80,29 +78,22 @@ let g:lightline = {
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
+      \   'gitbranch': 'FugitiveHead',
+      \   'gitdiff': 'GitStatus'
       \ },
       \ }
 
 
 " clangformat
-" Adding for auto detection of style
-" g:clang_format#code_style is a base style. llvm, google, chromium, mozilla
-" It's a vnoremap only changes part of code.
-let g:clang_format#code_style='google'
-let g:clang_format#detect_style_file=1
-vnoremap <leader>fc :ClangFormat <CR> \| :w <CR>
-inoremap <leader>afc :ClangFormat <CR> \| :w <CR>
+" formatting code :FormatCode to format whole code
+" whereas :FormatLines to format selected lines
+"let g:clang_format#command = "/cb/tools/llvm/201910211756-206/bin/clang-format"
+vnoremap <leader>fc :FormatLines <CR> \| :w <CR>
 autocmd BufEnter *.inc :setlocal filetype=cpp
 
-" ripgrep command for smartcase
-let g:rg_command = 'rg --vimgrep -S'
 
-" some autoformat and defaults
-nnoremap <leader>la :Autoformat <CR> \| :w <CR>
-nnoremap <leader>pyf :Black <CR> \| :w <CR>
+" Enable disable relative numbering.
 nnoremap <leader>rn :set rnu! <CR>
-nnoremap <leader>gc :GCheckout <CR>
 
 "enabling tabs i have ignored them for so long
 nnoremap tn :tabnew<Space>
@@ -110,14 +101,6 @@ nnoremap tl :tabnext<CR>
 nnoremap th :tabprev<CR>
 nnoremap tk :tabfirst<CR>
 nnoremap tj :tablast<CR>
-
-" git lens like feature show code 
-" let g:blamed_enabled = 0
-" let g:blamer_delay = 500
-" nnoremap <leader>gb :BlamerToggle <CR>
-" let g:blamer_show_in_visual_modes = 0
-" let g:blamer_date_format = '%d/%m/%y'
-
 
 "Let's Remap the tab in visual mode
 vnoremap <Tab> >gv
@@ -228,9 +211,10 @@ autocmd FileChangedShellPost *
 
 " YCM conf
 " install with .install.py --clangd-completer
-let g:ycm_global_ycm_extra_conf = '~/ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '/home/prashant/.ycm_extra_conf.py'
 let g:ycm_use_clangd = 1
 let g:ycm_max_diagnostics_to_display = 500
 let g:ycm_always_populate_location_list = 0
+let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_auto_hover = ""
 nnoremap <silent> <Leader>jp :YcmCompleter GoTo<CR>
