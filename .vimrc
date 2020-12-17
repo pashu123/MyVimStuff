@@ -44,7 +44,6 @@ Plug 'wesQ3/vim-windowswap'
 Plug 'kshenoy/vim-signature'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'voldikss/vim-floaterm'
 Plug 'wincent/terminus'
 Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
@@ -157,7 +156,7 @@ map <leader>ff <Esc><Esc>:Rg!
 map <leader>,f <Esc><Esc>:BLines!<CR>
 map <C-g> <Esc><Esc>:BCommits!<CR>
 map <leader>b <Esc><Esc>:Buffers!<CR>
-map <leader>cw <Esc><Esc>:FloatermToggle<CR> 
+map <leader>cw <Esc><Esc>:! 
 
 " Mapping for floatterm
 let g:floaterm_autoinsert=1
