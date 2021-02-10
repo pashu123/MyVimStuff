@@ -29,12 +29,12 @@ autocmd FileType * setlocal formatoptions-=r
 call plug#begin('~/.vim/plugged')
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
+Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
 Plug 'Valloric/YouCompleteMe'
 Plug 'preservim/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
-Plug 'airblade/vim-rooter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -46,6 +46,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'wincent/terminus'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'airblade/vim-rooter'
 call plug#end()
 
 " leader and important mappings
@@ -87,8 +88,11 @@ let g:lightline = {
 " formatting code :FormatCode to format whole code
 " whereas :FormatLines to format selected lines
 "let g:clang_format#command = "/cb/tools/llvm/201910211756-206/bin/clang-format"
+
+"Currently using default mode.
 vnoremap <leader>fc :FormatLines <CR> \| :w <CR>
 autocmd BufEnter *.inc :setlocal filetype=cpp
+autocmd BufEnter *.mlir :setlocal filetype=cpp
 
 
 " Enable disable relative numbering.
