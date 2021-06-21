@@ -29,35 +29,31 @@ autocmd FileType * setlocal formatoptions-=r
 call plug#begin('~/.vim/plugged')
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
-Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
-Plug 'Valloric/YouCompleteMe'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
-Plug 'jiangmiao/auto-pairs'
+Plug 'rstacruz/vim-closer'
 Plug 'preservim/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'wesQ3/vim-windowswap'
-Plug 'kshenoy/vim-signature'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'wincent/terminus'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-rooter'
+Plug 'ambv/black'
 call plug#end()
 
 " leader and important mappings
-" nnoremap <leader>, :vsplit ~/.config/nvim/init.vim<CR>
-" nnoremap <C-s> :source ~/.config/nvim/init.vim<CR>
 let mapleader=" "
-nnoremap <leader>, :vsplit ~/.vimrc<CR>
-nnoremap <C-s> :source ~/.vimrc<CR>
+nnoremap <leader>, :vsplit ~/.config/nvim/init.vim<CR>
+nnoremap <C-s> :source ~/.config/nvim/init.vim<CR>
 nnoremap <leader>g :GitGutterDisable <BAR> :set laststatus=0 <CR>
 map<leader>sb :NERDTreeToggle<CR>
-nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
+nmap <Leader>sf :NERDTreeFind<CR>
 nnoremap Q <nop>
 
 " ripgrep command for smartcase
@@ -94,7 +90,6 @@ vnoremap <leader>fc :FormatLines <CR> \| :w <CR>
 autocmd BufEnter *.inc :setlocal filetype=cpp
 autocmd BufEnter *.mlir :setlocal filetype=cpp
 
-
 " Enable disable relative numbering.
 nnoremap <leader>rn :set rnu! <CR>
 
@@ -108,21 +103,6 @@ nnoremap tj :tablast<CR>
 "Let's Remap the tab in visual mode
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-
-"Color Settings
-" If you have vim >=8.0 or Neovim >= 0.1.5
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
 
 " Theme
 colorscheme onedark
@@ -149,7 +129,7 @@ let g:formatter_yapf_style = 'pep8'
 nmap<leader>gj :diffget //3 <CR>
 nmap<leader>gf :diffget //2 <CR>
 nmap<leader>gs :G <CR>
-nmap<leader>pf :Gpush --force <CR>
+nmap<leader>pf :Git push --force <CR>
 
 " this is the mapping for fuzzy finder
 " Here files is for all files, GFiles is for
@@ -212,12 +192,10 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
 autocmd FileChangedShellPost *
     \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
-" YCM conf
-" install with .install.py --clangd-completer
-let g:ycm_global_ycm_extra_conf = '/home/prashant/.ycm_extra_conf.py'
-let g:ycm_use_clangd = 1
-let g:ycm_max_diagnostics_to_display = 500
-let g:ycm_always_populate_location_list = 0
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_auto_hover = ""
-nnoremap <silent> <Leader>jp :YcmCompleter GoTo<CR>
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+nmap <Leader>jp <Plug>(coc-definition)
+let b:coc_diagnostic_disable=1
